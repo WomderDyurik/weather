@@ -1,0 +1,150 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+*,
+*:before,
+*:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+:focus,
+:active {
+    outline: none;
+}
+a:focus,
+a:active {
+    outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+    display: block;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+input,
+button,
+textarea {
+    font-family: inherit;
+}
+
+input::-ms-clear {
+    display: none;
+}
+button {
+    cursor: pointer;
+}
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+a,
+a:visited {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+ul li {
+    list-style: none;
+}
+img {
+    vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: inherit;
+    font-weight: 400;
+}
+
+
+body{
+	background: #43fc00ad;
+}
+.container {
+	background: #00cefc;
+	margin: 50px auto;
+	max-width: 700px;
+	min-height: 500px;
+	font-family: "Roboto";
+	display: flex;
+	flex-direction: column;
+	border: 1px solid #FFFFFF;
+	border-radius: 10px;
+	padding: 20px;
+}
+
+.weather-title{
+	font-size: 40px;
+	text-align: center;
+	margin-top: 50px;
+	color: #6d1cd6;
+}
+
+.weather-form{
+	margin: 20px auto;
+	display: flex;
+}
+.weather-input{
+	font-size: 20px;
+	padding: 5px 15px ;
+	height: 40px;
+	width: 300px;
+	border-radius: 10px 0 0 10px;
+}
+
+.weather-btn{
+	background: #fce405;
+	border-radius: 0 5px 5px 0;
+	padding: 0px 7px;
+}
+
+.weather-items{
+	display: flex;
+	flex-direction: column;
+}
+.weather-item{
+	
+	margin: 20px 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+	border: 1px solid #FFFFFF;
+	border-radius: 10px;
+}
+
+.item-city{
+	font-size: 24px;
+}
+
+.item-delete{
+	font-size: 20px;
+	color: red;
+	padding: 3px;
+	cursor: pointer;
+}
+
+.item-image{
+	max-width: 50px;
+}
