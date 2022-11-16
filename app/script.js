@@ -4,11 +4,11 @@ const items = document.querySelector('.weather-items')
 
 btn.addEventListener('click', () => {
     console.log(input.value)
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input.value},ru&limit=1&appid=6e3cc78d674daa29a71b23a774f36768`)
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input.value},ru&limit=1&appid=************`)
     .then(function (resp) { return resp.json() })
     .then(function (data) {
         console.log(data[0].name)
-        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${data[0].name},ru&appid=6e3cc78d674daa29a71b23a774f36768`)
+        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${data[0].name},ru&appid=************`)
             .then(function (resp) { return resp.json() })
             .then(function (data) {
                 createItem(input.value, data.main.temp, data.weather[0]['description'], data.weather[0]['icon'])
