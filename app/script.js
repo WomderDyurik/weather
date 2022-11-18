@@ -4,13 +4,18 @@ const items = document.querySelector('.weather-items')
 const cityItems = document.querySelector('.city-items')
 
 btn.addEventListener('click', () => {
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input.value},ru&limit=************`)
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input.value}&limit=3&appid=********`)
     .then(function (resp) { return resp.json() })
     .then(function (data) {
-        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${data[0].name},ru&appid=************`)
-            .then(function (resp) { return resp.json() })
-            .then(function (data) {
-                createItemWithValue(input.value, data.main.temp, data.weather[0]['description'], data.weather[0]['icon'])
+        data.forEach(el => {
+            const cityItem = createEl('div', 'city-item')
+            cityItems.append(cityItem)
+            cityItem.textContent = `${el.name}, ${el.country}`
+            cityItem.addEventListener('click', () => {
+                searchWeather(el.name, el.country)
+            })
+            input.addEventListener('focusin', () => {
+                cityItem.remove()
             })
         });
         
@@ -52,7 +57,7 @@ function createEl(tag, className = '') {
 }
 
 function searchWeather(name, country){
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${name},${country}&appid=6e3cc78d674daa29a71b23a774f36768`)
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${name},${country}&appid=********`)
             .then(function (resp) { return resp.json() })
             .then(function (data) {
                 createItemWithValue(input.value, data.main.temp, data.weather[0]['description'], data.weather[0]['icon'])
