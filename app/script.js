@@ -1,26 +1,27 @@
 const btn = document.querySelector('.weather-btn')
 const input = document.querySelector('.weather-input')
 const items = document.querySelector('.weather-items')
+const cityItems = document.querySelector('.city-items')
 
 btn.addEventListener('click', () => {
-    console.log(input.value)
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input.value},ru&limit=1&appid=************`)
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input.value},ru&limit=************`)
     .then(function (resp) { return resp.json() })
     .then(function (data) {
-        console.log(data[0].name)
         fetch(`http://api.openweathermap.org/data/2.5/weather?q=${data[0].name},ru&appid=************`)
             .then(function (resp) { return resp.json() })
             .then(function (data) {
                 createItemWithValue(input.value, data.main.temp, data.weather[0]['description'], data.weather[0]['icon'])
             })
-            .catch(function () {
-                // catch any errors
-            });
+        });
+        
     })
     .catch(function () {
         // catch any errors
     });
 })
+
+
+
 
 function createItemWithValue(titlevalue,temp,desc,img) {
     const item = createEl('div', 'weather-item')
@@ -40,7 +41,7 @@ function createItemWithValue(titlevalue,temp,desc,img) {
     deleteEl.textContent = 'x'
 
     deleteEl.addEventListener('click', () => {
-        items.remove(item)
+        item.remove()
     })
 }
 
@@ -50,3 +51,13 @@ function createEl(tag, className = '') {
     return createdEl
 }
 
+function searchWeather(name, country){
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${name},${country}&appid=6e3cc78d674daa29a71b23a774f36768`)
+            .then(function (resp) { return resp.json() })
+            .then(function (data) {
+                createItemWithValue(input.value, data.main.temp, data.weather[0]['description'], data.weather[0]['icon'])
+            })
+            .catch(function () {
+                // catch any errors
+            });
+}
