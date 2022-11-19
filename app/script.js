@@ -5,7 +5,7 @@ const cityItems = document.querySelector('.city-items')
 let check = true
 
 btn.addEventListener('click', () => {
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input.value}&limit=3&appid=6e3cc78d674daa29a71b23a774f36768`)
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input.value}&limit=3&appid=********`)
     .then(function (resp) { return resp.json() })
     .then(function (data) {
         console.log(data)
@@ -58,8 +58,8 @@ function createEl(tag, className = '') {
     return createdEl
 }
 
-function searchWeather(name, country, state){
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${name},${country}&limit=1&appid=6e3cc78d674daa29a71b23a774f36768`)
+function searchWeather(name, country){
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${name},${country}&appid=6e3cc78d674daa29a71b23a774f36768`)
             .then(function (resp) { return resp.json() })
             .then(data2 => {
                 createItemWithValue(name, country, data2.main.temp, data2.weather[0]['description'], data2.weather[0]['icon'])
