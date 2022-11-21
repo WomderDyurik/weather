@@ -2,31 +2,25 @@ const btn = document.querySelector('.weather-btn')
 const input = document.querySelector('.weather-input')
 const items = document.querySelector('.weather-items')
 const cityItems = document.querySelector('.city-items')
-let check = true
 
-btn.addEventListener('click', () => {
+
+btn.addEventListener('click', createAll)
+
+
+
+function createAll() {
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input.value}&limit=3&appid=********`)
     .then(function (resp) { return resp.json() })
     .then(function (data) {
         console.log(data)
         data.forEach(el => {
             searchWeather(el.name, el.country)
-            // cityItems.append(cityItem)
-            // cityItem.textContent = `${el.name}, ${el.country}`
-            // cityItem.addEventListener('click', () => {
-            //     searchWeather(el.name, el.country)
-            // })
         });
     })
     .catch(function () {
         // catch any errors
     });
-    check = !check
-    
-})
-
-
-
+}
 
 function createItemWithValue(titlevalue, country, temp, desc, img) {
     const item = createEl('div', 'weather-item')
@@ -36,7 +30,6 @@ function createItemWithValue(titlevalue, country, temp, desc, img) {
     const features = createEl('div', 'features')
     const deleteEl = createEl('div', 'item-delete')
     const itemRight = createEl('div', 'item-right')
-
 
     title.textContent = `${titlevalue} ${country}`
     deg.innerHTML = Math.round(temp - 273) + '&deg;';
