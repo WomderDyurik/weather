@@ -80,7 +80,20 @@ h6 {
 
 body{
 	background: #43fc00ad;
+	animation-duration: 2s;
+	animation-name: greyscreen;
 }
+
+@keyframes greyscreen {
+	from {
+		background: #000000;
+	}
+
+	to	{
+		background: #43fc00ad;
+	}
+}
+
 .container {
 	background: #00cefc;
 	margin: 50px auto;
@@ -92,6 +105,20 @@ body{
 	border: 1px solid #FFFFFF;
 	border-radius: 10px;
 	padding: 20px;
+	animation-duration: 1s;
+	animation-name: fromhitodown;
+}
+
+@keyframes fromhitodown {
+	from {
+		transform: translateY(-100%);
+		opacity: 0;
+	}
+
+	to	{
+		opacity: 1;
+		transform: translateY(10px);
+	}
 }
 
 .weather-title{
@@ -203,10 +230,25 @@ body{
 }
 
 .item-delete{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
 	font-size: 20px;
 	color: red;
-	padding: 3px;
+	padding: 10px 5px 12px 5px;
 	cursor: pointer;
+	transition: .3s ease;
+}
+.item-delete:hover{
+	border-radius: 10px;
+	background: #000000;
+	color: #FFFFFF;
+}
+.item-delete:active{
+	background: #999999;
+	color: #fcb605;
 }
 
 .item-image{
