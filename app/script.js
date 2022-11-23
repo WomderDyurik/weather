@@ -2,9 +2,17 @@ const btn = document.querySelector('.weather-btn')
 const input = document.querySelector('.weather-input')
 const items = document.querySelector('.weather-items')
 const cityItems = document.querySelector('.city-items')
+const localData = JSON.parse(localStorage.getItem('localData'))
 
 
-btn.addEventListener('click', createAll)
+if(localData){
+    localData.forEach(el => {
+        searchWeather(el.name, el.country)
+    })
+} else {
+    btn.addEventListener('click', createAll)
+}
+
 
 
 
@@ -12,10 +20,10 @@ function createAll() {
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input.value}&limit=3&appid=6e3cc78d674daa29a71b23a774f36768`)
     .then(function (resp) { return resp.json() })
     .then(function (data) {
-        console.log(data)
         data.forEach(el => {
             searchWeather(el.name, el.country)
         });
+        localStorage.setItem('localData',JSON.stringify(data))
     })
     .catch(function () {
         // catch any errors
