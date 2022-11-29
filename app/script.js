@@ -3,31 +3,42 @@ const input = document.querySelector('.weather-input')
 const items = document.querySelector('.weather-items')
 const cityItems = document.querySelector('.city-items')
 const localData = JSON.parse(localStorage.getItem('localData'))
-
+const dataItems = []
 
 if(localData){
     localData.forEach(el => {
         searchWeather(el.name, el.country)
     })
-} else {
-    btn.addEventListener('click', createAll)
-}
+} 
+
+btn.addEventListener('click', createAll)
+
 
 
 
 
 function createAll() {
+    while(items.firstChild){
+        items.removeChild(items.firstChild)
+    }
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input.value}&limit=3&appid=********`)
     .then(function (resp) { return resp.json() })
     .then(function (data) {
+        localStorage.clear()
+        for(let i = 0; i < 2; i++){
+            if(data[i].country == data[i + 1].country){
+                delete data[i]
+            }
+        }
         data.forEach(el => {
             searchWeather(el.name, el.country)
+            dataItems.push({
+                'name' : el.name,
+                'country' : el.country
+            })
         });
-        localStorage.setItem('localData',JSON.stringify(data))
+        localStorage.setItem('localData',JSON.stringify(dataItems))
     })
-    .catch(function () {
-        // catch any errors
-    });
 }
 
 function createItemWithValue(titlevalue, country, temp, desc, img) {
@@ -65,7 +76,4 @@ function searchWeather(name, country){
             .then(data2 => {
                 createItemWithValue(name, country, data2.main.temp, data2.weather[0]['description'], data2.weather[0]['icon'])
             })
-            .catch(function () {
-                // catch any errors
-            });
 }
