@@ -39,6 +39,9 @@ function createAll() {
         });
         localStorage.setItem('localData',JSON.stringify(dataItems))
     })
+    .catch((error) => {
+        alert('Try to spell the city correctly')
+    })
 }
 
 function createItemWithValue(titlevalue, country, temp, desc, img) {
