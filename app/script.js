@@ -62,6 +62,10 @@ function createItemWithValue(titlevalue, country, temp, desc, img) {
     deleteEl.textContent = 'x'
     items.append(item)
 
+    title.addEventListener('click', () => {
+        localStorage.setItem('citys',title.textContent)
+    })
+
     deleteEl.addEventListener('click', () => {
         item.remove()
     })
@@ -80,3 +84,52 @@ function searchWeather(name, country){
                 createItemWithValue(name, country, data2.main.temp, data2.weather[0]['description'], data2.weather[0]['icon'])
             })
 }
+// profile
+const profile = document.querySelector('.header__profile-image')
+const btnProfile = document.querySelector('.profile-pop-button')
+const inputLogin = document.getElementById('login')
+const inputPassword = document.getElementById('password')
+const headerPop = document.querySelector('.header__pop')
+
+const logindata = JSON.parse(localStorage.getItem('loginData'))
+
+
+
+profile.addEventListener('click', showLogIn)
+
+
+if(logindata){
+    profile.removeEventListener('click', showLogIn)
+    profile.addEventListener('click', showHistory)
+    const loginProfile = createEl('div', 'header__pop-login')
+    loginProfile.innerText = logindata.login
+    headerPop.append(loginProfile)
+} 
+
+btnProfile.addEventListener('click', (e) => {
+    e.preventDefault()
+        const userData = {
+            'login' : inputLogin.value,
+            'password' : inputPassword.value,
+        }
+        localStorage.setItem('loginData',JSON.stringify(userData))
+        showLogIn()
+})
+
+const cityNames = localStorage.getItem('citys')
+console.log(cityNames)
+
+if(cityNames){
+    const cityName = createEl('div', 'header__pop-city')
+    cityName.innerText = cityNames
+    headerPop.append(cityName)
+}
+
+function showLogIn(){
+    document.querySelector('.profile-pop').classList.toggle('show')
+}
+function showHistory(){
+    headerPop.classList.toggle('show')
+}
+
+
