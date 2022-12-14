@@ -17,10 +17,7 @@ btn.addEventListener('click', createAll)
 
 
 
-function createAll() {
-    while(items.firstChild){
-        items.removeChild(items.firstChild)
-    }
+btn.addEventListener('click', () => {
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input.value}&limit=3&appid=********`)
     .then(function (resp) { return resp.json() })
     .then(function (data) {
@@ -42,7 +39,7 @@ function createAll() {
     .catch((error) => {
         alert('Try to spell the city correctly')
     })
-}
+})
 
 function createItemWithValue(titlevalue, country, temp, desc, img) {
     const item = createEl('div', 'weather-item')
@@ -60,7 +57,6 @@ function createItemWithValue(titlevalue, country, temp, desc, img) {
     itemRight.append(deg, description, features, deleteEl)
     item.append(title, itemRight)
     deleteEl.textContent = 'x'
-    items.append(item)
 
     deleteEl.addEventListener('click', () => {
         item.remove()
@@ -74,9 +70,12 @@ function createEl(tag, className = '') {
 }
 
 function searchWeather(name, country){
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${name},${country}&appid=********`)
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${name},${country}&appid=6e3cc78d674daa29a71b23a774f36768`)
             .then(function (resp) { return resp.json() })
             .then(data2 => {
                 createItemWithValue(name, country, data2.main.temp, data2.weather[0]['description'], data2.weather[0]['icon'])
             })
+            .catch(function () {
+                // catch any errors
+            });
 }
