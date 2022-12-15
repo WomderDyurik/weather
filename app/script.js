@@ -13,7 +13,11 @@ if(localData){
 
 btn.addEventListener('click', createAll)
 
+const htmlService = new HTMLService()
 
+function render(citys){
+    items.innerHTML = htmlService.paintCitys(citys)
+}
 
 
 
