@@ -4,6 +4,9 @@ const items = document.querySelector('.weather-items')
 const cityItems = document.querySelector('.city-items')
 const localData = JSON.parse(localStorage.getItem('localData'))
 const dataItems = []
+const htmlService = new HTMLService()
+const citys = []
+
 
 if(localData){
     localData.forEach(el => {
@@ -13,15 +16,10 @@ if(localData){
 
 btn.addEventListener('click', createAll)
 
-const htmlService = new HTMLService()
-
-function render(citys){
-    items.innerHTML = htmlService.paintCitys(citys)
-}
-
-
-
-btn.addEventListener('click', () => {
+function createAll() {
+    while(items.firstChild){
+        items.removeChild(items.firstChild)
+    }
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input.value}&limit=3&appid=********`)
     .then(function (resp) { return resp.json() })
     .then(function (data) {
@@ -43,43 +41,62 @@ btn.addEventListener('click', () => {
     .catch((error) => {
         alert('Try to spell the city correctly')
     })
-})
-
-function createItemWithValue(titlevalue, country, temp, desc, img) {
-    const item = createEl('div', 'weather-item')
-    const title = createEl('div', 'item-city')
-    const deg = createEl('div', 'item-deg')
-    const description = createEl('div', 'item-description')
-    const features = createEl('div', 'features')
-    const deleteEl = createEl('div', 'item-delete')
-    const itemRight = createEl('div', 'item-right')
-
-    title.textContent = `${titlevalue} ${country}`
-    deg.innerHTML = Math.round(temp - 273) + '&deg;';
-    description.textContent = desc
-    features.innerHTML = `<img class='item-image' src="https://openweathermap.org/img/wn/${img}@2x.png">`;
-    itemRight.append(deg, description, features, deleteEl)
-    item.append(title, itemRight)
-    deleteEl.textContent = 'x'
-
-    deleteEl.addEventListener('click', () => {
-        item.remove()
-    })
+    
 }
 
-function createEl(tag, className = '') {
-    let createdEl = document.createElement(tag)
-    createdEl.classList.add(className)
-    return createdEl
-}
-
-function searchWeather(name, country){
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${name},${country}&appid=6e3cc78d674daa29a71b23a774f36768`)
+function searchWeather(name='', country=''){
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${name},${country}&appid=********`)
             .then(function (resp) { return resp.json() })
             .then(data2 => {
-                createItemWithValue(name, country, data2.main.temp, data2.weather[0]['description'], data2.weather[0]['icon'])
+                citys.push(data2)
+                htmlService.createItemWithValue(name, country, data2.main.temp, data2.weather[0]['description'], data2.weather[0]['icon'])
             })
-            .catch(function () {
-                // catch any errors
-            });
+}
+
+// profile
+const profile = document.querySelector('.header__profile-image')
+const btnProfile = document.querySelector('.profile-pop-button')
+const inputLogin = document.getElementById('login')
+const inputPassword = document.getElementById('password')
+const headerPop = document.querySelector('.header__pop')
+
+const logindata = JSON.parse(localStorage.getItem('loginData'))
+
+
+
+profile.addEventListener('click', showLogIn)
+
+
+if(logindata){
+    profile.removeEventListener('click', showLogIn)
+    profile.addEventListener('click', showHistory)
+    const loginProfile = createEl('div', 'header__pop-login')
+    loginProfile.innerText = logindata.login
+    headerPop.append(loginProfile)
+} 
+
+btnProfile.addEventListener('click', (e) => {
+    e.preventDefault()
+        const userData = {
+            'login' : inputLogin.value,
+            'password' : inputPassword.value,
+        }
+        localStorage.setItem('loginData',JSON.stringify(userData))
+        showLogIn()
+})
+
+const cityNames = localStorage.getItem('citys')
+console.log(cityNames)
+
+if(cityNames){
+    const cityName = createEl('div', 'header__pop-city')
+    cityName.innerText = cityNames
+    headerPop.append(cityName)
+}
+
+function showLogIn(){
+    document.querySelector('.profile-pop').classList.toggle('show')
+}
+function showHistory(){
+    headerPop.classList.toggle('show')
 }

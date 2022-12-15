@@ -1,21 +1,34 @@
 class HTMLService{
-	paintCity(city){
-		return `
-		<div class="weather-item">
-			<div class="item-city">${city.name}</div>
-			<div class="item-right">
-				<div class="item-deg">${city.deg}</div>
-				<div class="item-description">${city.description}</div>
-				<div class="features">
-					<img class="item-image" src="${city.image}">
-				</div>
-				<div class="item-delete">x</div>
-			</div>
-		</div>
-		`
+	createItemWithValue(titlevalue, country, temp, desc, img) {
+		const item = this.createEl('div', 'weather-item')
+		const title = this.createEl('div', 'item-city')
+		const deg = this.createEl('div', 'item-deg')
+		const description = this.createEl('div', 'item-description')
+		const features = this.createEl('div', 'features')
+		const deleteEl = this.createEl('div', 'item-delete')
+		const itemRight = this.createEl('div', 'item-right')
+	
+		title.textContent = `${titlevalue} ${country}`
+		deg.innerHTML = Math.round(temp - 273) + '&deg;';
+		description.textContent = desc
+		features.innerHTML = `<img class='item-image' src="https://openweathermap.org/img/wn/${img}@2x.png">`;
+		itemRight.append(deg, description, features, deleteEl)
+		item.append(title, itemRight)
+		deleteEl.textContent = 'x'
+		items.append(item)
+	
+		title.addEventListener('click', () => {
+			localStorage.setItem('citys',title.textContent)
+		})
+	
+		deleteEl.addEventListener('click', () => {
+			item.remove()
+		})
 	}
 
-	paintCitys(citys = []){
-		return citys.map(this.paintCity).join('')
+	createEl(tag, className = '') {
+		let createdEl = document.createElement(tag)
+		createdEl.classList.add(className)
+		return createdEl
 	}
 }
