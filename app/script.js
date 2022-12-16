@@ -22,7 +22,7 @@ function render(citys){
 
 
 btn.addEventListener('click', () => {
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input.value}&limit=3&appid=********`)
+    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${input.value}&limit=3&appid=6e3cc78d674daa29a71b23a774f36768`)
     .then(function (resp) { return resp.json() })
     .then(function (data) {
         localStorage.clear()

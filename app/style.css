@@ -80,8 +80,128 @@ h6 {
 
 body{
 	background: #43fc00ad;
+	animation-duration: 2s;
+	animation-name: greyscreen;
 }
-.container {
+
+@keyframes greyscreen {
+	from {
+		background: #000000;
+	}
+
+	to	{
+		background: #43fc00ad;
+	}
+}
+
+.container{
+	margin: 0 auto;
+	width: 700px;
+	font-family: "Roboto";
+}
+
+.header__container{
+	background: #00ffe1;
+	border: 1px solid #FFFFFF;
+	border-radius: 10px 10px 0 0;
+	padding: 5px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	animation-duration: 2s;
+	animation-name: fromhitodown;
+}
+
+
+.header__image{
+	transition: 0.3s ease;
+	width: 50px;
+	cursor: pointer;
+	transition: 0.3s ease;
+}
+.header__image:hover{
+	opacity: .6;
+}
+
+.header__profile{
+	position: relative;
+}
+.header__pop{
+	width: 100px;
+	height: 300px;
+	background: #b1fc0d;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	right: -110px;
+}
+.header__pop-login{
+	color: #6d1cd6;
+	font-size: 20px;
+	background: #999999;
+	width: 100%;
+	padding: 10px;
+	color: #FFFFFF;
+
+}
+.header__pop-city{
+	color: #6d1cd6;
+	font-size: 18px;
+	transition: .3s ease;
+	cursor: pointer;
+	margin-bottom: 15px;
+}
+.header__pop-city:hover{
+	color: #fcb605;
+}
+
+.profile-pop{
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	background: #999999;
+	padding: 15px;
+	border-radius: 10px;
+	top: 0;
+	right: -170px;
+	display: none;
+}
+.show{
+	display: flex;
+}
+
+.profile-pop-input{
+	width: 150px;
+	height: 40px;
+	background: #00cefc;
+	color: #6d1cd6;
+	font-size: 14px;
+	padding: 5px;
+	border: 1px solid #00ffe1;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	transition: .3s ease;
+}
+.profile-pop-input:focus{
+	border: 2px solid #fcb605;
+}
+.profile-pop-button{
+	width: 150px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #6d1cd6;
+	color: #FFFFFF;
+	border-radius: 10px;
+	transition: .3s ease;
+}
+.profile-pop-button:hover{
+	opacity: .6;
+}
+.weather__container {
 	background: #00cefc;
 	min-height: 500px;
 	display: flex;
@@ -89,6 +209,20 @@ body{
 	border: 1px solid #FFFFFF;
 	border-radius: 0 0 10px 10px;
 	padding: 20px;
+	animation-duration: 1s;
+	animation-name: fromhitodown;
+}
+
+@keyframes fromhitodown {
+	from {
+		transform: translateY(-100%);
+		opacity: 0;
+	}
+
+	to	{
+		opacity: 1;
+		transform: translateY(0px);
+	}
 }
 
 
